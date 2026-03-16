@@ -1,35 +1,32 @@
-import { useEffect, useState } from "react";
-
-const HEARTS = Array.from({ length: 12 }, (_, i) => ({
+const HEARTS = Array.from({ length: 10 }, (_, i) => ({
   id: i,
   left: Math.random() * 100,
-  delay: Math.random() * 8,
-  duration: 8 + Math.random() * 6,
-  size: 12 + Math.random() * 20,
+  delay: Math.random() * 10,
+  duration: 10 + Math.random() * 8,
+  size: 10 + Math.random() * 16,
 }));
 
-const STARS = Array.from({ length: 15 }, (_, i) => ({
+const STARS = Array.from({ length: 12 }, (_, i) => ({
   id: i,
   left: Math.random() * 100,
   top: Math.random() * 100,
   delay: Math.random() * 5,
   duration: 3 + Math.random() * 4,
-  size: 4 + Math.random() * 8,
+  size: 4 + Math.random() * 6,
 }));
 
-const CLOUDS = Array.from({ length: 4 }, (_, i) => ({
+const CLOUDS = Array.from({ length: 3 }, (_, i) => ({
   id: i,
-  top: 5 + Math.random() * 30,
-  delay: i * 8,
-  duration: 30 + Math.random() * 20,
+  top: 5 + Math.random() * 25,
+  delay: i * 10,
+  duration: 35 + Math.random() * 20,
   size: 80 + Math.random() * 60,
-  opacity: 0.15 + Math.random() * 0.15,
+  opacity: 0.12 + Math.random() * 0.1,
 }));
 
 const FloatingElements = () => {
   return (
     <div className="fixed inset-0 z-[5] pointer-events-none overflow-hidden">
-      {/* Hearts */}
       {HEARTS.map((h) => (
         <div
           key={`h-${h.id}`}
@@ -46,7 +43,6 @@ const FloatingElements = () => {
         </div>
       ))}
 
-      {/* Stars */}
       {STARS.map((s) => (
         <div
           key={`s-${s.id}`}
@@ -63,7 +59,6 @@ const FloatingElements = () => {
         </div>
       ))}
 
-      {/* Clouds */}
       {CLOUDS.map((c) => (
         <div
           key={`c-${c.id}`}
@@ -76,11 +71,26 @@ const FloatingElements = () => {
             width: `${c.size}px`,
             height: `${c.size * 0.5}px`,
             borderRadius: "50%",
-            background: "hsl(0 0% 100% / 0.3)",
+            background: "hsl(0 0% 100% / 0.35)",
             filter: "blur(20px)",
             opacity: c.opacity,
           }}
         />
+      ))}
+
+      {/* Ribbons */}
+      {[15, 85].map((left, i) => (
+        <div
+          key={`r-${i}`}
+          className="absolute animate-ribbon text-primary/20"
+          style={{
+            left: `${left}%`,
+            top: `${10 + i * 30}%`,
+            fontSize: '24px',
+          }}
+        >
+          🎀
+        </div>
       ))}
     </div>
   );
